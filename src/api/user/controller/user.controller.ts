@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UserService } from '../service/kyc.service';
+import { CreateUserDto } from '../dto/create.dto';
+import { UserService } from '../service/user.service';
 
 @ApiBearerAuth('access-token')
 @ApiTags('User')
@@ -15,14 +15,14 @@ export class UserController {
     return this.userService.findAllEntities();
   }
 
-  @Post('')
+  @Post()
   @ApiOperation({ summary: 'Create User' })
   @ApiBody({ type: CreateUserDto })
   sendOtp(@Body() createEntityDto: CreateUserDto) {
     return this.userService.createEntity(createEntityDto);
   }
 
-  @Get('')
+  @Get()
   @ApiOperation({ summary: 'Get User By Id' })
   findOneEntity(@Query('userId') userId: string) {
     return this.userService.findOneEntity(userId);

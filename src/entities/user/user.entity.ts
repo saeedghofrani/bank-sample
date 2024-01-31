@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
+import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { MainEntity } from '../main/main.entity';
 import { WalletEntity } from '../wallet/wallet.entity';
 import { RoleEntity } from '../role/role.entity';
@@ -34,4 +34,9 @@ export class UserEntity extends MainEntity {
 
     @OneToMany(() => InstallmentEntity, (installment) => installment.user)
     installment: InstallmentEntity[];
+
+    @BeforeInsert()
+    async createName() {
+        this.name = this.first_name + '' + this.last_name;
+    }
 }

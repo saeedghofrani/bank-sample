@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { PostgresConstant } from 'src/common/constants/postgres.constant';
 import { UserEntity } from 'src/entities/user/user.entity';
 import { DataSource, Repository, UpdateResult } from 'typeorm';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto } from '../dto/create.dto';
 
 @Injectable()
 export class UserRepository
