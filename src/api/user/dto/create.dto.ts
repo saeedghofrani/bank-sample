@@ -1,5 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsMobilePhone, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+import { IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { RoleEntity } from 'src/entities/role/role.entity';
 import { UserEntity } from 'src/entities/user/user.entity';
 
 export class CreateUserDto implements Partial<UserEntity> {
@@ -18,6 +19,14 @@ export class CreateUserDto implements Partial<UserEntity> {
   @IsNotEmpty()
   @IsMobilePhone('fa-IR')
   mobile: string;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  roleId: number;
+
+  @ApiHideProperty()
+  role: RoleEntity;
 
   @ApiProperty()
   @IsString()

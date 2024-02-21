@@ -1,23 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create.dto';
-import { UserRepository } from '../repositories/kyc.repository';
 import { UserEntity } from 'src/entities/user/user.entity';
+import { UserRepository } from '../repository/user.repository';
+import { RoleService } from 'src/api/role/service/role.service';
 
 @Injectable()
 export class UserService {
   constructor(
-    private kycRepository: UserRepository,
+    private userRepository: UserRepository,
+    private roleService: RoleService
   ) { }
 
   async createEntity(createEntityDto: CreateUserDto): Promise<UserEntity> {
-    return await this.kycRepository.createEntity(createEntityDto);
+    createEntityDto.role = await this.roleService.findOne(createEntityDto.roleId);
+    return await this.userRepository.createEntity(createEntityDto);
   }
 
   async findAllEntities(): Promise<UserEntity[]> {
-    return await this.kycRepository.findAllEntities();
+    return await this.userRepository.findAllEntities();
   }
 
-  async findOneEntity(kycId: string): Promise<UserEntity> {
-    return await this.kycRepository.findOneEntity(kycId);
+  async findOneEntity(userId: string): Promise<UserEntity> {
+    return await this.userRepository.findOneEntity(userId);
   }
 }

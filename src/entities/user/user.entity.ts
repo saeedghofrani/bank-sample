@@ -6,22 +6,22 @@ import { InstallmentEntity } from '../installment/installment.entity';
 
 @Entity({ schema: 'public', name: 'user' })
 export class UserEntity extends MainEntity {
-    @Column()
+    @Column({})
     first_name: string;
 
-    @Column()
+    @Column({})
     last_name: string;
 
-    @Column()
+    @Column({ nullable: true })
     name: string;
 
-    @Column()
+    @Column({})
     mobile: string;
 
-    @Column()
+    @Column({ nullable: true })
     username: string;
 
-    @Column()
+    @Column({ nullable: true })
     password: string;
 
     @OneToOne(() => WalletEntity)
